@@ -1,0 +1,1 @@
+export {PrincipalTable} from 'Components/PrincipalTable';
