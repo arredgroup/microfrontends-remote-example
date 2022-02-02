@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+const deps = require("./package.json").dependencies;
 module.exports = {
     mode: 'development',
     devServer: {
@@ -18,7 +20,7 @@ module.exports = {
                     presets: [
                         '@babel/preset-env' /* to transfer any advansed ES to ES5 */,
                         '@babel/preset-react',
-                        '@babel/preset-typescript',
+                        '@babel/preset-typescript'
                     ], // to compile react to ES5
                 },
             },
@@ -33,10 +35,21 @@ module.exports = {
             {
                 name: 'Container',
                 filename:
-                    'main.js',
+                    'components.js',
                 remotes: {
                     Components:
-                        'Components@http://localhost:8081/principalTable.js',
+                        'Components@http://localhost:8081/components.js',
+                },
+                shared: {
+                    ...deps,
+                    react: {
+                        singleton: true,
+                        requiredVersion: deps.react,
+                    },
+                    "react-dom": {
+                        singleton: true,
+                        requiredVersion: deps["react-dom"],
+                    },
                 },
             }
         ),
@@ -44,5 +57,5 @@ module.exports = {
             template:
                 './public/index.html',
         }),
-    ],
+    ]
 };

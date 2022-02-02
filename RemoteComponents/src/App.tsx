@@ -1,9 +1,9 @@
 import React from 'react';
-import {PrincipalTable} from "./components/PrincipalTable/PrincipalTable";
+import PrincipalTable from "./components/PrincipalTable/PrincipalTable";
 
 function App() {
   return (
-    <PrincipalTable />
+    <PrincipalTable title={"DEMO"} elements={[{id:"1",name:"ka"}]} />
   );
 }
 

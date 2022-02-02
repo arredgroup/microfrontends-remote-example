@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.scss';
-import {PrincipalTable} from "./components/Remotes";
+import {Home} from "./pages/Home/Home";
 
 function App() {
   return (
     <div className="App">
-        <h1>Contenedor Principal</h1>
-        <React.Suspense fallback='...'>
-            <PrincipalTable />
-        </React.Suspense>
+        <Home />
     </div>
   );
 }

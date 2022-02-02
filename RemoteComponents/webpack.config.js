@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+const deps = require("./package.json").dependencies;
 module.exports = {
     mode: 'development',
     devServer: {
@@ -34,10 +36,21 @@ module.exports = {
             {
                 name: 'Components',
                 filename:
-                    'main.js',
+                    'components.js',
                 exposes: {
                     './PrincipalTable':
                         './src/components/PrincipalTable/PrincipalTable',
+                },
+                shared: {
+                    ...deps,
+                    react: {
+                        singleton: true,
+                        requiredVersion: deps.react,
+                    },
+                    "react-dom": {
+                        singleton: true,
+                        requiredVersion: deps["react-dom"],
+                    },
                 },
             }
         ),
